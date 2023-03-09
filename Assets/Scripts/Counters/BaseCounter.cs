@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     public virtual void Interact(Player player)
     {
         Debug.LogError("BaseCounter.Interact();");
+    }
+    public virtual void InteractAlternative(Player player)
+    {
+       // Debug.LogError("BaseCounter.InteractAlternative();");
     }
     public Transform GetTheKitchenObjectFollowTransform()
     {
@@ -30,4 +35,5 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     {
         return kitchenObject != null;
     }
+
 }

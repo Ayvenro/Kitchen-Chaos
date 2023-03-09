@@ -7,12 +7,19 @@ using UnityEngine.EventSystems;
 public class GameInput : MonoBehaviour
 {
     public event EventHandler OnUseAction;
+    public event EventHandler OnUseAlternativeAction;
     private PlayerInputActions playerInputActions;
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Use.performed += Use_performed;
+        playerInputActions.Player.UseAlternative.performed += UseAlternative_performed;
+    }
+
+    private void UseAlternative_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnUseAlternativeAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void Use_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
