@@ -6,7 +6,7 @@ using UnityEngine;
 public class KitchenObjectSO : ScriptableObject
 {
     [SerializeField] private Transform prefab;
-    [SerializeField] private Sprite sprite;
+    public Sprite sprite;
     public string objectName;
 
     public Transform GetPrefab()
