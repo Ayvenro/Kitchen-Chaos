@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
     [SerializeField] private AudioClipRefsSO audioReferencesSO;
-
+    private const string playerPrefsSoundEffectVolume = "SoundEffectVolume";
+    private float volume;
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        volume = PlayerPrefs.GetFloat(playerPrefsSoundEffectVolume, 1f);
     }
     private void Start()
     {
@@ -58,17 +69,39 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioReferencesSO.deliverySuccess, deliveryCounter.transform.position);
     }
 
-    private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip audioClip, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource.PlayClipAtPoint(audioClip, position, volume);
+        AudioSource.PlayClipAtPoint(audioClip, position, volumeMultiplier * volume);
     }
-    private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f)
+    private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volumeMultiplier = 1f)
     {
-        AudioSource.PlayClipAtPoint(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volume);
+        AudioSource.PlayClipAtPoint(audioClipArray[Random.Range(0, audioClipArray.Length)], position, volumeMultiplier * volume);
     }
 
     public void PlayFootStepsSound(Vector3 position, float volume)
     {
         PlaySound(audioReferencesSO.footstep, position, volume);
+    }
+
+    public void PlayCountdownSound()
+    {
+        PlaySound(audioReferencesSO.warning, Vector3.zero);
+    }
+
+    public void PlayWarningSound(Vector3 position )
+    {
+        PlaySound(audioReferencesSO.warning, position);
+    }
+
+    public void ChangeVolume(float value)
+    {
+        volume = value;
+        PlayerPrefs.SetFloat(playerPrefsSoundEffectVolume, value);
+        PlayerPrefs.Save();
+    }
+
+    public float GetVolume()
+    {
+        return volume;
     }
 }
