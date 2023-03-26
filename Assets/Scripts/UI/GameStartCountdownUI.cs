@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class GameStartCountdownUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI countdownText;
     private Animator animator;
-    private const string NumberPopup = "Numberpopup";
+    private const string NumberPopup = "NumberPopup";
     private int previousCountdownNumber;
 
     private void Awake()
@@ -40,7 +39,7 @@ public class GameStartCountdownUI : MonoBehaviour
         if (previousCountdownNumber != countdownNumber)
         {
             previousCountdownNumber = countdownNumber;
-            animator.SetTrigger(NumberPopup);
+            animator.SetTrigger(NumberPopup);   
             SoundManager.Instance.PlayCountdownSound();
 
         }
