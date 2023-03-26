@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static CuttingCounter;
-
 public class StoveCounter : BaseCounter, IHasProgress
 {
     public event EventHandler<OnStateEventArgs> OnStateChanged;
