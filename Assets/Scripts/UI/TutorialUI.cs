@@ -15,6 +15,7 @@ public class TutorialUI : MonoBehaviour
 
     private void Start()
     {
+        UpdateVisual();
         GameInput.Instance.OnBindingRebind += GameInput_OnBindingRebind;
         GameManager.Instance.OnStateChanged += GameManager_OnStateChanged;
     }
